@@ -9,46 +9,51 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<TableRow> tableRows = [];
-  List<String> options = ['A+', 'A', 'A-','B+','B','B-','C+','C','C-','D+','D','F'];
 
-  String selectedOption = 'A+';
-  void dropdowncall(){
-
-  }
+  List<String> selectedOptions = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'D', 'F'];
+  List<String> options = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'D', 'F'];
   void _addRow() {
     setState(() {
       tableRows.add(
         TableRow(
-            children: [
-        TableCell(
-        child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextFormField(
-          decoration: InputDecoration(hintText: 'Enter value'),
-        ),
+          children: [
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(hintText: 'Enter value'),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(hintText: 'Enter value'),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton<String>(
+                  value: selectedOptions.length > tableRows.length
+                      ? selectedOptions[tableRows.length - 1]
+                      : null,
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedOptions[tableRows.length - 1] = newValue!;
+                    });
+                  },
+              items: options.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
       ),
-      ),
-      TableCell(
-      child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-      decoration: InputDecoration(hintText: 'Enter value'),
-      ),
-      ),
-      ),
-      TableCell(
-      child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownButton(
-        items:DropdownMenuItem<String>(value:'A+'),
-
-      ),
-      ),
-      ) ]
-      ,
-      )
-      ,
-      );
+            ),
+      )],),);
     });
   }
 
@@ -89,18 +94,5 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
-// child: DropdownButton<String>(
-// value: selectedOption,
-// onChanged: (newValue) {
-// setState(() {
-// selectedOption = newValue!;
-// });
-// },
-// items: options.map<DropdownMenuItem<String>>((String value) {
-// return DropdownMenuItem<String>(
-// value: value,
-// child: Text(value),
-// );
-// }).toList(),
-// ),
+
 
